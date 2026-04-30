@@ -7,4 +7,12 @@ public record Enrollment(String studentUsername, String courseCode) {
                 courseCode
         );
     }
+
+    public static Enrollment fromLine(String line) {
+        String[] p = line.split(",");
+        return new Enrollment(
+                p[0],
+                p[1]
+        );
+    }
 }

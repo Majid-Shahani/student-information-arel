@@ -1,8 +1,8 @@
 package model;
 
 public record GradeRecord(String studentUsername, String courseCode, double midterm, double finalExam) {
-    double calculateAverage() { return 0.4 * midterm + 0.6 * finalExam; }
-    String getLetterGrade() {
+    public double calculateAverage() { return 0.4 * midterm + 0.6 * finalExam; }
+    public String getLetterGrade() {
         double avg = calculateAverage();
 
         if (avg >= 90) return "AA";
@@ -15,12 +15,21 @@ public record GradeRecord(String studentUsername, String courseCode, double midt
         if (avg >= 50) return "FD";
         return "FF";
     }
-    String toFileString() {
+    public String toFileString() {
         return String.join("",
                 studentUsername,
                 courseCode,
                 String.valueOf(midterm),
                 String.valueOf(finalExam)
+        );
+    }
+    public static GradeRecord fromLine(String line) {
+        String[] p = line.split(",");
+        return new GradeRecord(
+                p[0],
+                p[1],
+                Double.parseDouble(p[2]),
+                Double.parseDouble(p[3])
         );
     }
 }
