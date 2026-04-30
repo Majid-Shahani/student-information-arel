@@ -45,6 +45,9 @@ build/
 *.ipr
 *.iws
 out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+.kotlin
 
 # VS Code
 .vscode/
@@ -76,3 +79,18 @@ bin/
 .project
 .classpath
 .settings/
+
+### Eclipse ###
+.apt_generated
+.settings
+.springBeans
+.sts4-cache
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
