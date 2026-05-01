@@ -1,7 +1,11 @@
 package model;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 public record StudentProfile(String studentID, String fullName, String department, int year, String username) {
-    public String toFileString() {
+    @Contract(" -> new")
+    public @NotNull String toFileString() {
         return String.join(",",
                 studentID,
                 fullName,
@@ -10,7 +14,8 @@ public record StudentProfile(String studentID, String fullName, String departmen
                 username
         );
     }
-    public static StudentProfile fromLine(String line) {
+    @Contract("_ -> new")
+    public static @NotNull StudentProfile fromLine(@NotNull String line) {
         String[] p = line.split(",");
         return new StudentProfile(
                 p[0],

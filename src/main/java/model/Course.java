@@ -1,7 +1,11 @@
 package model;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 public record Course(String courseCode, String courseName, int credit, int quota, String instructorUsername) {
-    public String toFileString() {
+    @Contract(" -> new")
+    public @NotNull String toFileString() {
         return String.join(",",
                 courseCode,
                 courseName,
@@ -11,7 +15,8 @@ public record Course(String courseCode, String courseName, int credit, int quota
         );
     }
 
-    public static Course fromLine(String line) {
+    @Contract("_ -> new")
+    public static @NotNull Course fromLine(@NotNull String line) {
         String[] p = line.split(",");
         return new Course(
                 p[0],

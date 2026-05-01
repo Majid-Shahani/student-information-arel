@@ -1,8 +1,12 @@
 package model;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 public record GradeRecord(String studentUsername, String courseCode, double midterm, double finalExam) {
     public double calculateAverage() { return 0.4 * midterm + 0.6 * finalExam; }
-    public String getLetterGrade() {
+    @Contract(pure = true)
+    public @NotNull String getLetterGrade() {
         double avg = calculateAverage();
 
         if (avg >= 90) return "AA";
@@ -15,7 +19,8 @@ public record GradeRecord(String studentUsername, String courseCode, double midt
         if (avg >= 50) return "FD";
         return "FF";
     }
-    public String toFileString() {
+    @Contract(" -> new")
+    public @NotNull String toFileString() {
         return String.join("",
                 studentUsername,
                 courseCode,
@@ -23,7 +28,8 @@ public record GradeRecord(String studentUsername, String courseCode, double midt
                 String.valueOf(finalExam)
         );
     }
-    public static GradeRecord fromLine(String line) {
+    @Contract("_ -> new")
+    public static @NotNull GradeRecord fromLine(@NotNull String line) {
         String[] p = line.split(",");
         return new GradeRecord(
                 p[0],

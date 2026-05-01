@@ -1,7 +1,11 @@
 package model;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 public record User(String username, String password, Role role, String fullName, String id) {
-    public String toFileString() {
+    @Contract(" -> new")
+    public @NotNull String toFileString() {
         return String.join(",",
                 username,
                 password,
@@ -10,7 +14,8 @@ public record User(String username, String password, Role role, String fullName,
                 id
         );
     }
-    public static User fromLine(String line) {
+    @Contract("_ -> new")
+    public static @NotNull User fromLine(@NotNull String line) {
         String[] p = line.split(",");
         return new User(
                 p[0],
