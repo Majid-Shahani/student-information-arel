@@ -1,9 +1,11 @@
 package data;
 
 import model.StudentProfile;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentManager {
@@ -29,6 +31,11 @@ public class StudentManager {
     }
     public static List<StudentProfile> get() {
         return s_Students.get();
+    }
+    public static @NotNull ArrayList<StudentProfile> get(List<String> usernames) {
+        ArrayList<StudentProfile> res = new ArrayList<>();
+        for (var sp : s_Students.get()) if (usernames.contains(sp.username())) res.add(sp);
+        return res;
     }
 
 }

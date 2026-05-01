@@ -21,13 +21,17 @@ public class CourseManager {
     public static void load(Path path) { s_Courses.load(path); }
 
     public static List<Course> get() { return s_Courses.get(); }
-
     public static @Nullable Course get(String courseCode) {
-        for(Course c : s_Courses.get()) if (c.courseCode().equals(courseCode)) return c;
+        for (Course c : s_Courses.get()) if (c.courseCode().equals(courseCode)) return c;
         return null;
     }
+    public static @NotNull ArrayList<Course> get(List<String> codes) {
+        ArrayList<Course> res = new ArrayList<>();
+        for (var c : s_Courses.get()) if (codes.contains(c.courseCode())) res.add(c);
+        return res;
+    }
 
-    public static @NotNull List<Course> getByInstructor(String instructorName) {
+    public static @NotNull ArrayList<Course> getByInstructor(String instructorName) {
         ArrayList<Course> instructor_courses = new ArrayList<>();
         for (Course c : s_Courses.get()) {
             if (c.instructorUsername().equals(instructorName)) instructor_courses.add(c);

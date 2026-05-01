@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 
 public class EnrollmentManager {
     private EnrollmentManager() {}
@@ -34,13 +33,13 @@ public class EnrollmentManager {
         return false;
     }
 
-    public static @NotNull List<String> getCoursesBy(String studentUser) {
-        List<String> res = new ArrayList<>();
+    public static @NotNull ArrayList<String> getCoursesBy(String studentUser) {
+        ArrayList<String> res = new ArrayList<>();
         for (final var e : s_Enrollments.get()) if (e.studentUsername().equals(studentUser)) res.add(e.courseCode());
         return res;
     }
-    public static @NotNull List<String> getStudentsIn(String courseCode) {
-        List<String> res = new ArrayList<>();
+    public static @NotNull ArrayList<String> getStudentsIn(String courseCode) {
+        ArrayList<String> res = new ArrayList<>();
         for (final var e : s_Enrollments.get()) if (e.courseCode().equals(courseCode)) res.add(e.studentUsername());
         return res;
     }
