@@ -17,6 +17,9 @@ public class GradeManager {
     public static void save(Path path) { s_Grades.save(path); }
     public static void load(Path path) { s_Grades.load(path); }
 
+    public static boolean add(String studentUsername, String courseCode, double midterm, double finalExam) {
+        return s_Grades.add(new GradeRecord(studentUsername, courseCode, midterm, finalExam));
+    }
     public static @Nullable GradeRecord get(String studentUser, String courseCode) {
         for (var g : s_Grades.get()) if (g.studentUsername().equals(studentUser) && g.courseCode().equals(courseCode))
             return g;

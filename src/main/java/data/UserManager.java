@@ -1,5 +1,6 @@
 package data;
 
+import model.Role;
 import model.User;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,6 +21,10 @@ public class UserManager {
     }
     public static void save(Path path) {
         s_Users.save(path);
+    }
+
+    public static boolean add(String username, String password, Role role, String fullName, String id) {
+        return s_Users.add(new User(username, password, role, fullName, id));
     }
 
     public static boolean authenticate(String username, String password) {

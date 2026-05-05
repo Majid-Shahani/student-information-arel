@@ -25,6 +25,10 @@ public class StudentManager {
         s_Students.save(path);
     }
 
+    public static boolean add(String studentID, String fullName, String department, int year, String username) {
+        return s_Students.add(new StudentProfile(studentID, fullName, department, year, username));
+    }
+
     public static @Nullable StudentProfile get(String username) {
         for (var sp : s_Students.get()) if (sp.username().equals(username)) return sp;
         return null;

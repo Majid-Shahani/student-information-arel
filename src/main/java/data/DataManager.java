@@ -23,6 +23,11 @@ public class DataManager<T> {
         this.serializer = serializer;
     }
 
+    public boolean add(T t) {
+        if (items.contains(t)) return false;
+        items.add(t);
+        return true;
+    }
     public List<T> get() { return items; }
 
     public boolean save(Path path) {

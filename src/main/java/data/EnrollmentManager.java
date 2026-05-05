@@ -18,6 +18,9 @@ public class EnrollmentManager {
     public static void save(Path path) { s_Enrollments.save(path); }
     public static void load(Path path) { s_Enrollments.load(path); }
 
+    public static boolean add(String studentUsername, String courseCode) {
+        return s_Enrollments.add(new Enrollment(studentUsername, courseCode));
+    }
     public static int studentCount(String courseCode) {
         int count = 0;
         for (final var e : s_Enrollments.get()) {
