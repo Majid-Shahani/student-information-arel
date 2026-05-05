@@ -23,6 +23,10 @@ public class CourseManager {
     public static boolean add(String courseCode, String courseName, int credit, int quota, String instructorUsername) {
         return s_Courses.add(new Course(courseCode, courseName, credit, quota, instructorUsername));
     }
+    public static boolean removeCourse(String courseCode) {
+        return s_Courses.get().removeIf(e -> e.courseCode().equals(courseCode));
+    }
+
     public static List<Course> get() { return s_Courses.get(); }
     public static @Nullable Course get(String courseCode) {
         for (Course c : s_Courses.get()) if (c.courseCode().equals(courseCode)) return c;

@@ -1,5 +1,7 @@
 package data;
 
+import model.StudentProfile;
+
 import java.nio.file.Path;
 
 public class DataStore {
@@ -20,5 +22,17 @@ public class DataStore {
         GradeManager.save(base.resolve("grades.txt"));
         StudentManager.save(base.resolve("students.txt"));
         UserManager.save(base.resolve("users.txt"));
+    }
+    public static void deleteCourse(String courseCode) {
+        CourseManager.removeCourse(courseCode);
+        EnrollmentManager.removeCourse(courseCode);
+        GradeManager.removeCourse(courseCode);
+    }
+
+    public static void deleteStudent(StudentProfile st) {
+        StudentManager.removeUser(st.studentID());
+        UserManager.removeUser(st.username());
+        EnrollmentManager.removeStudent(st.studentID());
+        GradeManager.removeStudent(st.studentID());
     }
 }

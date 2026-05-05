@@ -28,13 +28,13 @@ public class StudentManager {
     public static boolean add(String studentID, String fullName, String department, int year, String username) {
         return s_Students.add(new StudentProfile(studentID, fullName, department, year, username));
     }
+    public static boolean removeUser(String username) {
+        return s_Students.get().removeIf(s -> s.username().equals(username));
+    }
 
     public static @Nullable StudentProfile get(String username) {
         for (var sp : s_Students.get()) if (sp.username().equals(username)) return sp;
         return null;
-    }
-    public static List<StudentProfile> get() {
-        return s_Students.get();
     }
     public static @NotNull ArrayList<StudentProfile> get(List<String> usernames) {
         ArrayList<StudentProfile> res = new ArrayList<>();

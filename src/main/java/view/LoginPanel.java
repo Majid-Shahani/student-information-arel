@@ -8,14 +8,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class Login extends JPanel {
+public class LoginPanel extends JPanel {
 
     private final JFrame parent;
 
     private final JTextField usernameField;
     private final JPasswordField passwordField;
 
-    public Login(JFrame parent) {
+    public LoginPanel(JFrame parent) {
         this.parent = parent;
 
         setLayout(new GridBagLayout());

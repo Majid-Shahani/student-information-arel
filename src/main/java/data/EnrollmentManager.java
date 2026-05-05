@@ -54,4 +54,10 @@ public class EnrollmentManager {
         return s_Enrollments.get().removeIf(
                 e -> (e.courseCode().equals(courseCode) && e.studentUsername().equals(studentUser)));
     }
+    public static boolean removeCourse(String courseCode) {
+        return s_Enrollments.get().removeIf(e -> e.courseCode().equals(courseCode));
+    }
+    public static boolean removeStudent(String studentUsername) {
+        return s_Enrollments.get().removeIf(e -> e.studentUsername().equals(studentUsername));
+    }
 }

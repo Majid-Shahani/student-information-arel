@@ -26,6 +26,9 @@ public class UserManager {
     public static boolean add(String username, String password, Role role, String fullName, String id) {
         return s_Users.add(new User(username, password, role, fullName, id));
     }
+    public static boolean removeUser(String username) {
+        return s_Users.get().removeIf(u -> u.username().equals(username));
+    }
 
     public static User authenticate(String username, String password) {
         for (var user : s_Users.get()) {
