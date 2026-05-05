@@ -21,7 +21,7 @@ public record GradeRecord(String studentUsername, String courseCode, double midt
     }
     @Contract(" -> new")
     public @NotNull String toFileString() {
-        return String.join("",
+        return String.join(",",
                 studentUsername,
                 courseCode,
                 String.valueOf(midterm),

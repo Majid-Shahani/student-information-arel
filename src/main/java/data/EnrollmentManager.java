@@ -19,6 +19,9 @@ public class EnrollmentManager {
     public static void load(Path path) { s_Enrollments.load(path); }
 
     public static boolean add(String studentUsername, String courseCode) {
+        var c = CourseManager.get(courseCode);
+        if (c == null) return false;
+        if (c.quota() == studentCount(courseCode)) return false;
         return s_Enrollments.add(new Enrollment(studentUsername, courseCode));
     }
     public static int studentCount(String courseCode) {

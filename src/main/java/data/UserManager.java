@@ -27,12 +27,12 @@ public class UserManager {
         return s_Users.add(new User(username, password, role, fullName, id));
     }
 
-    public static boolean authenticate(String username, String password) {
+    public static User authenticate(String username, String password) {
         for (var user : s_Users.get()) {
             if (user.username().equals(username))
-                if (user.password().equals(password)) return true;
+                if (user.password().equals(password)) return user;
         }
-        return false;
+        return null;
     }
 
     public static @Nullable User get(String username) {
