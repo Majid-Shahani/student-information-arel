@@ -22,8 +22,7 @@ public class AdminPanel extends JPanel {
         tabs = new JTabbedPane();
 
         tabs.addTab("Courses", new CourseTab());
-        //tabs.addTab("Students", new StudentTab());
-        //tabs.addTab("Users", new UserTab());
+        tabs.addTab("Users", new UserTab());
 
         add(tabs, BorderLayout.CENTER);
     }
