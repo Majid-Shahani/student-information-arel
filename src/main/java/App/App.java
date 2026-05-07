@@ -1,65 +1,48 @@
 package App;
 
-import data.*;
-import view.*;
+import data.DataStore;
+import model.User;
+import view.LoginPanel;
 import view.admin.AdminPanel;
 import view.instructor.InstructorPanel;
 import view.student.StudentPanel;
 
+import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
-import java.awt.*;
 
 public class App extends JFrame {
-
-    private final CardLayout cardLayout;
-    private final JPanel mainPanel;
-
     public App() {
         setTitle("Student Information System");
-        setSize(800,600);
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
+
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 DataStore.saveAll();
             }
         });
+
         setLocationRelativeTo(null);
-
-        cardLayout = new CardLayout();
-        mainPanel = new JPanel(cardLayout);
-
-        mainPanel.add(new LoginPanel(this), "LOGIN");
-        add(mainPanel);
-
-        show("LOGIN");
+        setContentPane(new LoginPanel(this));
     }
 
-    public void show(String panelName) {
-        cardLayout.show(mainPanel, panelName);
-    }
-
-    public void onLogin(model.User user) {
-        switch(user.role()) {
-            case ADMIN -> {
-                mainPanel.add(new AdminPanel(), "ADMIN");
-                show("ADMIN");
-            }
-            case INSTRUCTOR -> {
-                mainPanel.add(new InstructorPanel(user), "INSTRUCTOR");
-                show("INSTRUCTOR");
-            }
-            case STUDENT -> {
-                mainPanel.add(new StudentPanel(user), "STUDENT");
-                show("STUDENT");
-            }
+    public void onLogin(@NotNull User user) {
+        switch (user.role()) {
+            case ADMIN -> setContentPane(new AdminPanel());
+            case INSTRUCTOR -> setContentPane(new InstructorPanel(user));
+            case STUDENT -> setContentPane(new StudentPanel(user));
         }
+        revalidate();
+        repaint();
     }
 
     static void main() {
         DataStore.loadAll();
 
-        SwingUtilities.invokeLater(() -> new App().setVisible(true));
+        SwingUtilities.invokeLater(() ->
+                new App().setVisible(true)
+        );
     }
 }
