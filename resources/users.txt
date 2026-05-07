@@ -1,2 +1,3 @@
 admin,admin,ADMIN,majid shahani,1
 nc,nc,INSTRUCTOR,nc,nc
+mm,mm,STUDENT,MM,14

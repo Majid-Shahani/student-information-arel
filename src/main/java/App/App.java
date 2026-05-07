@@ -5,6 +5,7 @@ import model.User;
 import view.*;
 import view.admin.AdminPanel;
 import view.instructor.InstructorPanel;
+import view.student.StudentPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,6 +54,7 @@ public class App extends JFrame {
                 show("INSTRUCTOR");
             }
             case STUDENT -> {
+                mainPanel.add(new StudentPanel(this, currUser), "STUDENT");
                 show("STUDENT");
             }
         }

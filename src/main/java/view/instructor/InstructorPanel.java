@@ -8,14 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class InstructorPanel extends JPanel {
-
-    private final App app;
-    private final User user;
-
     public InstructorPanel(App app, User user) {
-        this.app = app;
-        this.user = user;
-
         setLayout(new BorderLayout());
 
         JTabbedPane tabs = new JTabbedPane();
