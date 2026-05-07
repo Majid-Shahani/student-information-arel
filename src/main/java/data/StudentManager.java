@@ -38,6 +38,7 @@ public class StudentManager {
         s_Students.get().removeIf(s -> s.username().equals(username));
     }
 
+    public static List<StudentProfile> get() { return s_Students.get(); }
     public static @Nullable StudentProfile get(String username) {
         for (var sp : s_Students.get()) if (sp.username().equals(username)) return sp;
         return null;

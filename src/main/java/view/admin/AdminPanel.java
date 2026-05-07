@@ -15,6 +15,8 @@ public class AdminPanel extends JPanel {
 
         tabs.addTab("Courses", new CourseTab());
         tabs.addTab("Users", new UserTab());
+        tabs.addTab("Students", new StudentTab());
+
         tabs.addChangeListener(_ -> {
             Component selected = tabs.getSelectedComponent();
             if (selected instanceof Refreshable ref) ref.refresh();
