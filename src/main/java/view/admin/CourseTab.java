@@ -5,15 +5,14 @@ import data.UserManager;
 import model.Course;
 import model.Role;
 import model.User;
+import view.Refreshable;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
-public class CourseTab extends JPanel {
+public class CourseTab extends JPanel implements Refreshable {
 
     private final DefaultTableModel model;
     JTable table;
@@ -35,7 +34,7 @@ public class CourseTab extends JPanel {
         add(addBtn, BorderLayout.SOUTH);
         add(deleteBtn, BorderLayout.NORTH);
 
-        loadData();
+        refresh();
     }
 
     private void deleteSelected() {
@@ -57,11 +56,11 @@ public class CourseTab extends JPanel {
 
         if (confirm == JOptionPane.YES_OPTION) {
             data.DataStore.deleteCourse(code);
-            loadData();
+            refresh();
         }
     }
 
-    private void loadData() {
+    public void refresh() {
         model.setRowCount(0);
 
         for (Course c : CourseManager.get()) {
@@ -83,7 +82,7 @@ public class CourseTab extends JPanel {
         JComboBox<User> instructor = new JComboBox<>();
 
         for (var u : UserManager.get()) {
-            if (u.role() == Role.INSTRUCTOR || u.role() == Role.ADMIN) {
+            if (u.role() == Role.INSTRUCTOR) {
                 instructor.addItem(u);
             }
         }
@@ -128,7 +127,7 @@ public class CourseTab extends JPanel {
                     return;
                 }
 
-                loadData();
+                refresh();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Invalid input");
             }

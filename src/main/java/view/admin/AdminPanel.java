@@ -2,6 +2,7 @@ package view.admin;
 
 import App.App;
 import model.User;
+import view.Refreshable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +24,10 @@ public class AdminPanel extends JPanel {
 
         tabs.addTab("Courses", new CourseTab());
         tabs.addTab("Users", new UserTab());
+        tabs.addChangeListener(e -> {
+            Component selected = tabs.getSelectedComponent();
+            if (selected instanceof Refreshable ref) ref.refresh();
+        });
 
         add(tabs, BorderLayout.CENTER);
     }

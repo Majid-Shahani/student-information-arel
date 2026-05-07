@@ -5,12 +5,13 @@ import data.StudentManager;
 import data.UserManager;
 import model.Role;
 import model.User;
+import view.Refreshable;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class UserTab extends JPanel {
+public class UserTab extends JPanel implements Refreshable {
 
     private final DefaultTableModel model;
     private final JTable table;
@@ -37,10 +38,11 @@ public class UserTab extends JPanel {
         add(top, BorderLayout.NORTH);
         add(new JScrollPane(table), BorderLayout.CENTER);
 
-        loadData();
+        refresh();
     }
 
-    private void loadData() {
+    @Override
+    public void refresh() {
         model.setRowCount(0);
 
         for (User u : UserManager.get()) {
@@ -117,7 +119,7 @@ public class UserTab extends JPanel {
             return;
         }
 
-        loadData();
+        refresh();
     }
 
     private void openStudentDialog() {
@@ -186,7 +188,7 @@ public class UserTab extends JPanel {
                 return;
             }
 
-            loadData();
+            refresh();
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Invalid year");
@@ -211,16 +213,8 @@ public class UserTab extends JPanel {
         );
 
         if (confirm != JOptionPane.YES_OPTION) return;
+        DataStore.removeUser(username);
 
-        User user = UserManager.get(username);
-
-        if (user.role() == Role.STUDENT) {
-            var student = StudentManager.get(username);
-            DataStore.deleteStudent(student);
-        } else {
-            UserManager.removeUser(username);
-        }
-
-        loadData();
+        refresh();
     }
 }

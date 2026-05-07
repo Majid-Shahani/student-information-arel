@@ -29,6 +29,9 @@ public class CourseManager {
     public static boolean removeCourse(String courseCode) {
         return s_Courses.get().removeIf(e -> e.courseCode().equals(courseCode));
     }
+    public static boolean removeCourses(List<Course> courses) {
+        return s_Courses.get().removeAll(courses);
+    }
 
     public static List<Course> get() { return s_Courses.get(); }
     public static @Nullable Course get(String courseCode) {

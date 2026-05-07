@@ -1,8 +1,11 @@
 package data;
 
+import model.Role;
 import model.StudentProfile;
+import model.User;
 
 import java.nio.file.Path;
+import java.util.Objects;
 
 public class DataStore {
     public static void loadAll() {
@@ -23,10 +26,29 @@ public class DataStore {
         StudentManager.save(base.resolve("students.txt"));
         UserManager.save(base.resolve("users.txt"));
     }
+
     public static void deleteCourse(String courseCode) {
         CourseManager.removeCourse(courseCode);
         EnrollmentManager.removeCourse(courseCode);
         GradeManager.removeCourse(courseCode);
+    }
+
+    public static void removeUser(String username) {
+        deleteUser(Objects.requireNonNull(UserManager.get(username)));
+    }
+    public static void deleteUser(User user) {
+        if (user.role() == Role.STUDENT) deleteStudent(Objects.requireNonNull(StudentManager.get(user.username())));
+        else if (user.role() == Role.INSTRUCTOR) deleteInstructor(user);
+        else UserManager.removeUser(user.username()); // admin
+    }
+    public static void deleteInstructor(User user) {
+        var courses = CourseManager.getByInstructor(user.username());
+        for (var course : courses) {
+            EnrollmentManager.removeCourse(course.courseCode());
+            GradeManager.removeCourse(course.courseCode());
+        }
+        CourseManager.removeCourses(courses);
+        UserManager.removeUser(user.username());
     }
 
     public static void deleteStudent(StudentProfile st) {
