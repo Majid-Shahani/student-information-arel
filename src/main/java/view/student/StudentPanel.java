@@ -15,7 +15,7 @@ public class StudentPanel extends JPanel {
 
         tabs.addTab("Available Courses", new AvailableCoursesTab(user));
         tabs.addTab("My Courses", new MyCoursesTab(user));
-        //tabs.addTab("Transcript", new TranscriptTab(user));
+        tabs.addTab("Transcript", new TranscriptTab(user));
 
         tabs.addChangeListener(e -> {
             Component selected = tabs.getSelectedComponent();
