@@ -30,9 +30,12 @@ public class CourseTab extends JPanel implements Refreshable {
         JButton deleteBtn = new JButton("Delete Course");
         deleteBtn.addActionListener(e -> deleteSelected());
 
+        JPanel top = new JPanel();
+        top.add(addBtn);
+        top.add(deleteBtn);
+
         add(new JScrollPane(table), BorderLayout.CENTER);
-        add(addBtn, BorderLayout.SOUTH);
-        add(deleteBtn, BorderLayout.NORTH);
+        add(top, BorderLayout.NORTH);
 
         refresh();
     }

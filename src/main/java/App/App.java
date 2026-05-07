@@ -4,6 +4,7 @@ import data.*;
 import model.User;
 import view.*;
 import view.admin.AdminPanel;
+import view.instructor.InstructorPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,8 +17,9 @@ public class App extends JFrame {
 
     public App() {
         setTitle("Student Information System");
-        setSize(600,450);
+        setSize(800,600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
@@ -29,7 +31,6 @@ public class App extends JFrame {
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        mainPanel.add(new AdminPanel(this, currUser), "ADMIN");
         mainPanel.add(new LoginPanel(this), "LOGIN");
         add(mainPanel);
 
@@ -37,15 +38,23 @@ public class App extends JFrame {
     }
 
     public void show(String panelName) {
-
         cardLayout.show(mainPanel, panelName);
     }
 
     public void onLogin(model.User user) {
+        currUser = user;
         switch(user.role()) {
-            case ADMIN -> show("ADMIN");
-            case INSTRUCTOR -> show("INSTRUCTOR");
-            case STUDENT -> show("STUDENT");
+            case ADMIN -> {
+                mainPanel.add(new AdminPanel(this, currUser), "ADMIN");
+                show("ADMIN");
+            }
+            case INSTRUCTOR -> {
+                mainPanel.add(new InstructorPanel(this, currUser), "INSTRUCTOR");
+                show("INSTRUCTOR");
+            }
+            case STUDENT -> {
+                show("STUDENT");
+            }
         }
     }
 
