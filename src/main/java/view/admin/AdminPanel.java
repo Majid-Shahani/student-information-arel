@@ -1,7 +1,5 @@
 package view.admin;
 
-import App.App;
-import model.User;
 import view.Refreshable;
 
 import javax.swing.*;
@@ -10,14 +8,14 @@ import java.awt.*;
 public class AdminPanel extends JPanel {
     private final JTabbedPane tabs;
 
-    public AdminPanel(App app, User user) {
+    public AdminPanel() {
         setLayout(new BorderLayout());
 
         tabs = new JTabbedPane();
 
         tabs.addTab("Courses", new CourseTab());
         tabs.addTab("Users", new UserTab());
-        tabs.addChangeListener(e -> {
+        tabs.addChangeListener(_ -> {
             Component selected = tabs.getSelectedComponent();
             if (selected instanceof Refreshable ref) ref.refresh();
         });

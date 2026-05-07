@@ -43,7 +43,7 @@ public class App extends JFrame {
     public void onLogin(model.User user) {
         switch(user.role()) {
             case ADMIN -> {
-                mainPanel.add(new AdminPanel(this, user), "ADMIN");
+                mainPanel.add(new AdminPanel(), "ADMIN");
                 show("ADMIN");
             }
             case INSTRUCTOR -> {
@@ -51,7 +51,7 @@ public class App extends JFrame {
                 show("INSTRUCTOR");
             }
             case STUDENT -> {
-                mainPanel.add(new StudentPanel(this, user), "STUDENT");
+                mainPanel.add(new StudentPanel(user), "STUDENT");
                 show("STUDENT");
             }
         }

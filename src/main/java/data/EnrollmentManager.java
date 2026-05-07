@@ -60,10 +60,6 @@ public class EnrollmentManager {
         return res;
     }
 
-    public static boolean removeEnrollment(String studentUser, String courseCode) {
-        return s_Enrollments.get().removeIf(
-                e -> (e.courseCode().equals(courseCode) && e.studentUsername().equals(studentUser)));
-    }
     public static void removeCourse(String courseCode) {
         s_Enrollments.get().removeIf(e -> e.courseCode().equals(courseCode));
     }

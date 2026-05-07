@@ -25,10 +25,10 @@ public class CourseTab extends JPanel implements Refreshable {
         table = new JTable(model);
 
         JButton addBtn = new JButton("Add Course");
-        addBtn.addActionListener(e -> openAddDialog());
+        addBtn.addActionListener(_ -> openAddDialog());
 
         JButton deleteBtn = new JButton("Delete Course");
-        deleteBtn.addActionListener(e -> deleteSelected());
+        deleteBtn.addActionListener(_ -> deleteSelected());
 
         JPanel top = new JPanel();
         top.add(addBtn);
@@ -93,11 +93,11 @@ public class CourseTab extends JPanel implements Refreshable {
             JOptionPane.showMessageDialog(this, "No Instructors Available");
             return;
         }
-        instructor.setRenderer((list,
+        instructor.setRenderer((_,
                                 value,
-                                index,
-                                isSelected,
-                                cellHasFocus)
+                                _,
+                                _,
+                                _)
                 -> new JLabel(value.fullName()));
 
         Object[] fields = {

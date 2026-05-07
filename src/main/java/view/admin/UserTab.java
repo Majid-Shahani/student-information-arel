@@ -28,8 +28,8 @@ public class UserTab extends JPanel implements Refreshable {
         JButton addBtn = new JButton("Add User");
         JButton deleteBtn = new JButton("Delete User");
 
-        addBtn.addActionListener(e -> chooseRoleAndOpenDialog());
-        deleteBtn.addActionListener(e -> deleteSelected());
+        addBtn.addActionListener(_ -> chooseRoleAndOpenDialog());
+        deleteBtn.addActionListener(_ -> deleteSelected());
 
         JPanel top = new JPanel();
         top.add(addBtn);
