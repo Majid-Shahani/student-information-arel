@@ -26,11 +26,11 @@ public class CourseManager {
         s_Courses.add(new Course(courseCode, courseName, credit, quota, instructorUsername));
         return true;
     }
-    public static boolean removeCourse(String courseCode) {
-        return s_Courses.get().removeIf(e -> e.courseCode().equals(courseCode));
+    public static void removeCourse(String courseCode) {
+        s_Courses.get().removeIf(e -> e.courseCode().equals(courseCode));
     }
-    public static boolean removeCourses(List<Course> courses) {
-        return s_Courses.get().removeAll(courses);
+    public static void removeCourses(List<Course> courses) {
+        s_Courses.get().removeAll(courses);
     }
 
     public static List<Course> get() { return s_Courses.get(); }

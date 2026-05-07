@@ -9,9 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class LoginPanel extends JPanel {
-
     private final JFrame parent;
-
     private final JTextField usernameField;
     private final JPasswordField passwordField;
 

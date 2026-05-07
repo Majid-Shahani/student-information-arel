@@ -1,7 +1,6 @@
 package App;
 
 import data.*;
-import model.User;
 import view.*;
 import view.admin.AdminPanel;
 import view.instructor.InstructorPanel;
@@ -14,7 +13,6 @@ public class App extends JFrame {
 
     private final CardLayout cardLayout;
     private final JPanel mainPanel;
-    private User currUser;
 
     public App() {
         setTitle("Student Information System");
@@ -43,26 +41,25 @@ public class App extends JFrame {
     }
 
     public void onLogin(model.User user) {
-        currUser = user;
         switch(user.role()) {
             case ADMIN -> {
-                mainPanel.add(new AdminPanel(this, currUser), "ADMIN");
+                mainPanel.add(new AdminPanel(this, user), "ADMIN");
                 show("ADMIN");
             }
             case INSTRUCTOR -> {
-                mainPanel.add(new InstructorPanel(this, currUser), "INSTRUCTOR");
+                mainPanel.add(new InstructorPanel(user), "INSTRUCTOR");
                 show("INSTRUCTOR");
             }
             case STUDENT -> {
-                mainPanel.add(new StudentPanel(this, currUser), "STUDENT");
+                mainPanel.add(new StudentPanel(this, user), "STUDENT");
                 show("STUDENT");
             }
         }
     }
 
-    static void main(String[] args) {
+    static void main() {
         DataStore.loadAll();
 
-        SwingUtilities.invokeLater(() -> { new App().setVisible(true); });
+        SwingUtilities.invokeLater(() -> new App().setVisible(true));
     }
 }

@@ -13,11 +13,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class TranscriptTab extends JPanel implements Refreshable {
-
     private final User student;
-
     private final DefaultTableModel model;
-
     private final JLabel gpaLabel;
 
     public TranscriptTab(User student) {

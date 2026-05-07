@@ -3,6 +3,7 @@ package data;
 import model.Role;
 import model.StudentProfile;
 import model.User;
+import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
 import java.util.Objects;
@@ -36,12 +37,12 @@ public class DataStore {
     public static void removeUser(String username) {
         deleteUser(Objects.requireNonNull(UserManager.get(username)));
     }
-    public static void deleteUser(User user) {
+    public static void deleteUser(@NotNull User user) {
         if (user.role() == Role.STUDENT) deleteStudent(Objects.requireNonNull(StudentManager.get(user.username())));
         else if (user.role() == Role.INSTRUCTOR) deleteInstructor(user);
         else UserManager.removeUser(user.username()); // admin
     }
-    public static void deleteInstructor(User user) {
+    public static void deleteInstructor(@NotNull User user) {
         var courses = CourseManager.getByInstructor(user.username());
         for (var course : courses) {
             EnrollmentManager.removeCourse(course.courseCode());
@@ -51,7 +52,7 @@ public class DataStore {
         UserManager.removeUser(user.username());
     }
 
-    public static void deleteStudent(StudentProfile st) {
+    public static void deleteStudent(@NotNull StudentProfile st) {
         StudentManager.removeUser(st.studentID());
         UserManager.removeUser(st.username());
         EnrollmentManager.removeStudent(st.studentID());

@@ -23,11 +23,11 @@ public class GradeManager {
         s_Grades.add(new GradeRecord(studentUsername, courseCode, midterm, finalExam));
         return true;
     }
-    public static boolean removeCourse(String courseCode) {
-        return s_Grades.get().removeIf(g -> g.courseCode().equals(courseCode));
+    public static void removeCourse(String courseCode) {
+        s_Grades.get().removeIf(g -> g.courseCode().equals(courseCode));
     }
-    public static boolean removeStudent(String studentUser) {
-        return s_Grades.get().removeIf(g -> g.studentUsername().equals(studentUser));
+    public static void removeStudent(String studentUser) {
+        s_Grades.get().removeIf(g -> g.studentUsername().equals(studentUser));
     }
 
     public static @Nullable GradeRecord get(String studentUser, String courseCode) {
@@ -41,16 +41,15 @@ public class GradeManager {
         return grades;
     }
 
-    public static boolean updateGrade(String sUser, String cc, double midterms, double finals) {
+    public static void updateGrade(String sUser, String cc, double midterms, double finals) {
         var it = s_Grades.get().listIterator();
         while (it.hasNext()) {
             var g = it.next();
             if (g.studentUsername().equals(sUser) && g.courseCode().equals(cc)) {
                 it.set(new GradeRecord(sUser, cc, midterms, finals));
-                return true;
+                return;
             }
         }
-        return false;
     }
     public static double gpa(String sUser) {
         double sum = 0;

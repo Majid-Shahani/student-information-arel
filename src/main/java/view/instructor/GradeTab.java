@@ -9,6 +9,7 @@ import model.Course;
 import model.GradeRecord;
 import model.StudentProfile;
 import model.User;
+import org.jetbrains.annotations.NotNull;
 import view.Refreshable;
 
 import javax.swing.*;
@@ -16,27 +17,25 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class GradeTab extends JPanel implements Refreshable {
-    private final User instructor;
     private final JComboBox<Course> courseBox;
 
     private final DefaultTableModel model;
     private final JTable table;
 
-    public GradeTab(User instructor) {
-        this.instructor = instructor;
+    public GradeTab(@NotNull User instructor) {
         setLayout(new BorderLayout());
 
         courseBox = new JComboBox<>();
         for (Course c : CourseManager.getByInstructor(instructor.username())) {
             courseBox.addItem(c);
         }
-        courseBox.setRenderer((list,
+        courseBox.setRenderer((_,
                                value,
-                               index,
-                               isSelected,
-                               cellHasFocus)
+                               _,
+                               _,
+                               _)
                 -> new JLabel(value.courseCode() + " - " + value.courseName()));
-        courseBox.addActionListener(e -> refresh());
+        courseBox.addActionListener(_ -> refresh());
 
         model = new DefaultTableModel(
                 new String[]{
@@ -51,7 +50,7 @@ public class GradeTab extends JPanel implements Refreshable {
 
         table = new JTable(model);
         JButton gradeBtn = new JButton("Enter / Update Grade");
-        gradeBtn.addActionListener(e -> openGradeDialog());
+        gradeBtn.addActionListener(_ -> openGradeDialog());
 
         add(courseBox, BorderLayout.NORTH);
         add(new JScrollPane(table), BorderLayout.CENTER);
@@ -61,25 +60,16 @@ public class GradeTab extends JPanel implements Refreshable {
     }
 
     public void refresh() {
-
         model.setRowCount(0);
-
         Course selectedCourse = (Course) courseBox.getSelectedItem();
-
         if (selectedCourse == null) return;
 
-        for (String username :
-                EnrollmentManager.getStudentsIn(selectedCourse.courseCode())) {
-
+        for (String username :EnrollmentManager.getStudentsIn(selectedCourse.courseCode())) {
             StudentProfile student = StudentManager.get(username);
-
             if (student == null) continue;
 
-            GradeRecord grade =
-                    GradeManager.get(username, selectedCourse.courseCode());
-
+            GradeRecord grade = GradeManager.get(username, selectedCourse.courseCode());
             if (grade == null) {
-
                 model.addRow(new Object[]{
                         username,
                         student.fullName(),
@@ -88,9 +78,7 @@ public class GradeTab extends JPanel implements Refreshable {
                         "-",
                         "-"
                 });
-
             } else {
-
                 model.addRow(new Object[]{
                         username,
                         student.fullName(),
@@ -111,25 +99,19 @@ public class GradeTab extends JPanel implements Refreshable {
             return;
         }
 
-        Course selectedCourse =
-                (Course) courseBox.getSelectedItem();
+        Course selectedCourse = (Course) courseBox.getSelectedItem();
         if (selectedCourse == null) return;
 
-        String username =
-                model.getValueAt(row, 0).toString();
+        String username = model.getValueAt(row, 0).toString();
 
         JTextField midtermField = new JTextField();
         JTextField finalField = new JTextField();
 
-        GradeRecord existing =
-                GradeManager.get(username,
-                        selectedCourse.courseCode());
+        GradeRecord existing = GradeManager.get(username, selectedCourse.courseCode());
 
         if (existing != null) {
-            midtermField.setText(
-                    String.valueOf(existing.midterm()));
-            finalField.setText(
-                    String.valueOf(existing.finalExam()));
+            midtermField.setText(String.valueOf(existing.midterm()));
+            finalField.setText(String.valueOf(existing.finalExam()));
         }
 
         Object[] fields = {
@@ -146,15 +128,11 @@ public class GradeTab extends JPanel implements Refreshable {
         if (result != JOptionPane.OK_OPTION) return;
 
         try {
-            double midterm =
-                    Double.parseDouble(midtermField.getText());
-            double finals =
-                    Double.parseDouble(finalField.getText());
+            double midterm = Double.parseDouble(midtermField.getText());
+            double finals =Double.parseDouble(finalField.getText());
 
-            if (midterm < 0 || midterm > 100 ||
-                    finals < 0 || finals > 100) {
-                JOptionPane.showMessageDialog(this,
-                        "Grades must be between 0 and 100");
+            if (midterm < 0 || midterm > 100 || finals < 0 || finals > 100) {
+                JOptionPane.showMessageDialog(this,"Grades must be between 0 and 100");
                 return;
             }
 
@@ -176,8 +154,7 @@ public class GradeTab extends JPanel implements Refreshable {
 
             refresh();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this,
-                    "Invalid grade input");
+            JOptionPane.showMessageDialog(this,"Invalid grade input");
         }
     }
 }

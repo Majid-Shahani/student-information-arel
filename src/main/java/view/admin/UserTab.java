@@ -72,6 +72,7 @@ public class UserTab extends JPanel implements Refreshable {
         switch (role) {
             case ADMIN, INSTRUCTOR -> openBasicUserDialog(role);
             case STUDENT -> openStudentDialog();
+            case null -> {}
         }
     }
 

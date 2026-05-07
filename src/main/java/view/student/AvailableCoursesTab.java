@@ -32,7 +32,7 @@ public class AvailableCoursesTab extends JPanel implements Refreshable {
         table = new JTable(model);
 
         JButton enrollBtn = new JButton("Enroll");
-        enrollBtn.addActionListener(e -> enrollSelected());
+        enrollBtn.addActionListener(_ -> enrollSelected());
 
         add(new JScrollPane(table), BorderLayout.CENTER);
         add(enrollBtn, BorderLayout.SOUTH);
@@ -43,8 +43,7 @@ public class AvailableCoursesTab extends JPanel implements Refreshable {
     public void refresh() {
         model.setRowCount(0);
         for (Course c : CourseManager.get()) {
-            if (EnrollmentManager.isEnrolled( student.username(), c.courseCode()))
-                continue;
+            if (EnrollmentManager.isEnrolled( student.username(), c.courseCode())) continue;
 
             model.addRow(new Object[]{
                     c.courseCode(),
@@ -63,7 +62,6 @@ public class AvailableCoursesTab extends JPanel implements Refreshable {
             JOptionPane.showMessageDialog(this, "Select a course first");
             return;
         }
-
         String code = model.getValueAt(row, 0).toString();
 
         boolean ok = EnrollmentManager.add(student.username(), code);

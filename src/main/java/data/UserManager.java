@@ -30,11 +30,11 @@ public class UserManager {
         s_Users.add(new User(username, password, role, fullName, id));
         return true;
     }
-    public static boolean removeUser(String username) {
-        return s_Users.get().removeIf(u -> u.username().equals(username));
+    public static void removeUser(String username) {
+        s_Users.get().removeIf(u -> u.username().equals(username));
     }
 
-    public static User authenticate(String username, String password) {
+    public static @Nullable User authenticate(String username, String password) {
         for (var user : s_Users.get()) {
             if (user.username().equals(username))
                 if (user.password().equals(password)) return user;

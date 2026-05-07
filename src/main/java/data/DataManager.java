@@ -28,27 +28,21 @@ public class DataManager<T> {
     }
     public List<T> get() { return items; }
 
-    public boolean save(Path path) {
+    public void save(Path path) {
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             for (T item : items) {
                 writer.write(serializer.apply(item));
                 writer.newLine();
             }
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+        } catch (IOException _) {
         }
     }
 
-    public boolean load(Path path) {
+    public void load(Path path) {
         try (var lines = Files.lines(path)) {
             items.clear();
             lines.forEach(line -> items.add(parser.apply(line)));
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+        } catch (IOException _) {
         }
     }
 }

@@ -13,7 +13,7 @@ public record Enrollment(String studentUsername, String courseCode) {
     }
 
     @Contract("_ -> new")
-    public static @NotNull Enrollment fromLine(String line) {
+    public static @NotNull Enrollment fromLine(@NotNull String line) {
         String[] p = line.split(",");
         return new Enrollment(
                 p[0],

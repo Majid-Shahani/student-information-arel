@@ -12,7 +12,6 @@ public class StudentPanel extends JPanel {
         setLayout(new BorderLayout());
 
         JTabbedPane tabs = new JTabbedPane();
-
         tabs.addTab("Available Courses", new AvailableCoursesTab(user));
         tabs.addTab("My Courses", new MyCoursesTab(user));
         tabs.addTab("Transcript", new TranscriptTab(user));

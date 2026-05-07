@@ -34,8 +34,8 @@ public class StudentManager {
         s_Students.add(new StudentProfile(studentID, fullName, department, year, username));
         return true;
     }
-    public static boolean removeUser(String username) {
-        return s_Students.get().removeIf(s -> s.username().equals(username));
+    public static void removeUser(String username) {
+        s_Students.get().removeIf(s -> s.username().equals(username));
     }
 
     public static @Nullable StudentProfile get(String username) {
