@@ -20,9 +20,19 @@ public class EnrollmentManager {
 
     public static boolean add(String studentUsername, String courseCode) {
         var c = CourseManager.get(courseCode);
-        if (c == null) return false;
-        if (c.quota() == studentCount(courseCode)) return false;
-        return s_Enrollments.add(new Enrollment(studentUsername, courseCode));
+        if (c == null) return false; // check if course exists
+
+        int count = 0;
+        for (var e : s_Enrollments.get()) {
+            if (e.courseCode().equals(courseCode)) {
+                count++;
+                if (e.studentUsername().equals(studentUsername)) return false; // if student is already enrolled
+            }
+        }
+        if (count == c.quota()) return false; // if course is filled
+
+        s_Enrollments.add(new Enrollment(studentUsername, courseCode));
+        return true;
     }
     public static int studentCount(String courseCode) {
         int count = 0;

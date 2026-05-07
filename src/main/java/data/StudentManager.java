@@ -26,7 +26,13 @@ public class StudentManager {
     }
 
     public static boolean add(String studentID, String fullName, String department, int year, String username) {
-        return s_Students.add(new StudentProfile(studentID, fullName, department, year, username));
+        for (var st : s_Students.get()) {
+            if (st.username().equals(username)) return false;
+            if (st.studentID().equals(studentID)) return false;
+            if (st.fullName().equals(fullName)) return false;
+        }
+        s_Students.add(new StudentProfile(studentID, fullName, department, year, username));
+        return true;
     }
     public static boolean removeUser(String username) {
         return s_Students.get().removeIf(s -> s.username().equals(username));

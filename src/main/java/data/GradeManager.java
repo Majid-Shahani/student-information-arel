@@ -18,7 +18,10 @@ public class GradeManager {
     public static void load(Path path) { s_Grades.load(path); }
 
     public static boolean add(String studentUsername, String courseCode, double midterm, double finalExam) {
-        return s_Grades.add(new GradeRecord(studentUsername, courseCode, midterm, finalExam));
+        s_Grades.get().removeIf(
+                g -> (g.studentUsername().equals(studentUsername) && g.courseCode().equals(courseCode)));
+        s_Grades.add(new GradeRecord(studentUsername, courseCode, midterm, finalExam));
+        return true;
     }
     public static boolean removeCourse(String courseCode) {
         return s_Grades.get().removeIf(g -> g.courseCode().equals(courseCode));

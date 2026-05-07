@@ -21,7 +21,10 @@ public class CourseManager {
     public static void load(Path path) { s_Courses.load(path); }
 
     public static boolean add(String courseCode, String courseName, int credit, int quota, String instructorUsername) {
-        return s_Courses.add(new Course(courseCode, courseName, credit, quota, instructorUsername));
+        for (var c : s_Courses.get())
+            if (c.courseCode().equals(courseCode)) return false;
+        s_Courses.add(new Course(courseCode, courseName, credit, quota, instructorUsername));
+        return true;
     }
     public static boolean removeCourse(String courseCode) {
         return s_Courses.get().removeIf(e -> e.courseCode().equals(courseCode));

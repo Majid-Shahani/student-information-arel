@@ -23,10 +23,8 @@ public class DataManager<T> {
         this.serializer = serializer;
     }
 
-    public boolean add(T t) {
-        if (items.contains(t)) return false;
+    public void add(T t) {
         items.add(t);
-        return true;
     }
     public List<T> get() { return items; }
 
