@@ -30,6 +30,7 @@ public class LoginPanel extends JPanel {
 
         JButton loginButton = new JButton("Login");
         loginButton.addActionListener(this::handleLogin);
+        parent.getRootPane().setDefaultButton(loginButton);
 
         gbc.insets = new Insets(10,10,10,10);
 
