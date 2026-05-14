@@ -35,12 +35,13 @@ public class DataStore {
     }
 
     public static void removeUser(String username) {
-        deleteUser(Objects.requireNonNull(UserManager.get(username)));
-    }
-    public static void deleteUser(@NotNull User user) {
+        User user = (Objects.requireNonNull(UserManager.get(username)));
         if (user.role() == Role.STUDENT) deleteStudent(Objects.requireNonNull(StudentManager.get(user.username())));
         else if (user.role() == Role.INSTRUCTOR) deleteInstructor(user);
-        else UserManager.removeUser(user.username()); // admin
+        else deleteUser(user); // admin
+    }
+    public static void deleteUser(@NotNull User user) {
+        UserManager.removeUser(user);
     }
     public static void deleteInstructor(@NotNull User user) {
         var courses = CourseManager.getByInstructor(user.username());
@@ -49,13 +50,13 @@ public class DataStore {
             GradeManager.removeCourse(course.courseCode());
         }
         CourseManager.removeCourses(courses);
-        UserManager.removeUser(user.username());
+        UserManager.removeUser(user);
     }
 
     public static void deleteStudent(@NotNull StudentProfile st) {
-        StudentManager.removeUser(st.studentID());
+        StudentManager.removeUser(st.username());
         UserManager.removeUser(st.username());
-        EnrollmentManager.removeStudent(st.studentID());
-        GradeManager.removeStudent(st.studentID());
+        EnrollmentManager.removeStudent(st.username());
+        GradeManager.removeStudent(st.username());
     }
 }

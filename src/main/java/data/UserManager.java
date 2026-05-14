@@ -33,6 +33,9 @@ public class UserManager {
     public static void removeUser(String username) {
         s_Users.get().removeIf(u -> u.username().equals(username));
     }
+    public static void removeUser(User user) {
+        s_Users.get().remove(user);
+    }
 
     public static @Nullable User authenticate(String username, String password) {
         for (var user : s_Users.get()) {

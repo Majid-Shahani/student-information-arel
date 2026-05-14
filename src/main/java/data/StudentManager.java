@@ -35,7 +35,7 @@ public class StudentManager {
         return true;
     }
     public static void removeUser(String username) {
-        s_Students.get().removeIf(s -> s.username().equals(username));
+        IO.println("Deleted: " + s_Students.get().removeIf(s -> s.username().equals(username)));
     }
 
     public static List<StudentProfile> get() { return s_Students.get(); }
