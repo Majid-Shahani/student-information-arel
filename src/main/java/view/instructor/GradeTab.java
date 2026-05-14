@@ -46,7 +46,10 @@ public class GradeTab extends JPanel implements Refreshable {
                         "Average",
                         "Letter"
                 }, 0
-        );
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) { return false; }
+        };
 
         table = new JTable(model);
         JButton gradeBtn = new JButton("Enter / Update Grade");

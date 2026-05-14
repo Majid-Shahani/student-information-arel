@@ -27,7 +27,10 @@ public class AvailableCoursesTab extends JPanel implements Refreshable {
                         "Quota",
                         "Instructor"
                 }, 0
-        );
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) { return false; }
+        };
 
         table = new JTable(model);
 

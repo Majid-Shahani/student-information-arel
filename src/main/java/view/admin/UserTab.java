@@ -21,7 +21,10 @@ public class UserTab extends JPanel implements Refreshable {
 
         model = new DefaultTableModel(
                 new String[]{"Username", "Full Name", "Role", "ID"}, 0
-        );
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) { return false; }
+        };
 
         table = new JTable(model);
 

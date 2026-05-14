@@ -29,7 +29,10 @@ public class TranscriptTab extends JPanel implements Refreshable {
                         "Average",
                         "Letter"
                 }, 0
-        );
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) { return false; }
+        };
 
         JTable table = new JTable(model);
         gpaLabel = new JLabel();

@@ -3,6 +3,7 @@ package view;
 import App.App;
 import data.UserManager;
 import model.User;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,7 @@ public class LoginPanel extends JPanel {
     private final JTextField usernameField;
     private final JPasswordField passwordField;
 
-    public LoginPanel(JFrame parent) {
+    public LoginPanel(@NotNull JFrame parent) {
         this.parent = parent;
 
         setLayout(new GridBagLayout());

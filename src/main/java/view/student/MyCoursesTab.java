@@ -26,7 +26,10 @@ public class MyCoursesTab extends JPanel implements Refreshable {
                         "Credit",
                         "Instructor"
                 }, 0
-        );
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) { return false; }
+        };
 
         JTable table = new JTable(model);
         add(new JScrollPane(table), BorderLayout.CENTER);

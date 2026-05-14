@@ -22,7 +22,10 @@ public class StudentTab extends JPanel implements Refreshable {
                         "Username"
                 },
                 0
-        );
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) { return false; }
+        };
         JTable table = new JTable(model);
         add(new JScrollPane(table), BorderLayout.CENTER);
 
